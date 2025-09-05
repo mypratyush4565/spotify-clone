@@ -5,15 +5,12 @@ import SearchContent from "./components/SearchContent";
 
 export const revalidate = 3600;
 
-// Next.js App Router async page props
 type SearchPageProps = {
-  searchParams: { title?: string } | Promise<{ title?: string }>;
+  searchParams: { title?: string };
 };
 
 const SearchPage = async ({ searchParams }: SearchPageProps) => {
-  // Await if searchParams is a Promise
-  const params = searchParams instanceof Promise ? await searchParams : searchParams;
-  const title = params.title ?? "";
+  const title = searchParams.title ?? "";
   const songs = await getSongsByTitle(title);
 
   return (

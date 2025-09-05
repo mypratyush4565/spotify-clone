@@ -5,16 +5,14 @@ import SearchContent from "./components/SearchContent";
 
 export const revalidate = 3600;
 
-
-interface SearchPageProps {
-  searchParams: {
-    title?: string; // optional in case no query is passed
-  };
-}
+// Next.js App Router async page props
+type SearchPageProps = {
+  searchParams: Record<string, string | undefined>;
+};
 
 const SearchPage = async ({ searchParams }: SearchPageProps) => {
-  // Provide a default empty string if title is undefined
-  const songs = await getSongsByTitle(searchParams.title || "");
+  const title = searchParams.title ?? ""; // fallback if undefined
+  const songs = await getSongsByTitle(title);
 
   return (
     <div className="bg-neutral-900 rounded-lg h-full w-full overflow-hidden overflow-y-auto">

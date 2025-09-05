@@ -7,11 +7,13 @@ export const revalidate = 3600;
 
 // Next.js App Router async page props
 type SearchPageProps = {
-  searchParams: Record<string, string | undefined>;
+  searchParams: { title?: string } | Promise<{ title?: string }>;
 };
 
 const SearchPage = async ({ searchParams }: SearchPageProps) => {
-  const title = searchParams.title ?? ""; // fallback if undefined
+  // Await if searchParams is a Promise
+  const params = searchParams instanceof Promise ? await searchParams : searchParams;
+  const title = params.title ?? "";
   const songs = await getSongsByTitle(title);
 
   return (

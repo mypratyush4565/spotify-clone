@@ -5,12 +5,12 @@ import SearchContent from "./components/SearchContent";
 
 export const revalidate = 3600;
 
+// ✅ Use a flexible type for searchParams
 type SearchPageProps = {
   searchParams: Record<string, string | undefined>;
 };
 
 const SearchPage = async ({ searchParams }: SearchPageProps) => {
-  // Provide a default if no title param
   const title = searchParams.title ?? "";
   const songs = await getSongsByTitle(title);
 

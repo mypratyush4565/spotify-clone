@@ -5,13 +5,12 @@ import SearchContent from "./components/SearchContent";
 
 export const revalidate = 3600;
 
-interface SearchPageProps {
-  searchParams: {
-    title?: string;
-  };
-}
+type SearchPageProps = {
+  searchParams: Record<string, string | undefined>;
+};
 
 const SearchPage = async ({ searchParams }: SearchPageProps) => {
+  // Provide a default if no title param
   const title = searchParams.title ?? "";
   const songs = await getSongsByTitle(title);
 

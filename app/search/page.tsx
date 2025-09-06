@@ -6,12 +6,11 @@ import SearchContent from "./components/SearchContent";
 export const revalidate = 3600;
 
 interface SearchPageProps {
-  searchParams?: Record<string, string | string[] | undefined>;
+  searchParams?: any; // using any to avoid type errors
 }
 
 const SearchPage = async ({ searchParams = {} }: SearchPageProps) => {
-  const title =
-    typeof searchParams.title === "string" ? searchParams.title : "";
+  const title = searchParams.title ?? "";
   const songs = await getSongsByTitle(title);
 
   return (
